@@ -56,35 +56,35 @@ impl File {
     }
 
     pub async fn write_at(&self, pos: u64, buf: &[u8]) -> Result<usize> {
-        match &mut self.0 {
+        match &self.0 {
             LinuxFile::Uring(file) => file.write_at(pos, buf).await,
             LinuxFile::Pos(file) => file.write_at(pos, buf).await,
         }
     }
 
     pub async fn read_at(&self, pos: u64, buf: &mut [u8]) -> Result<usize> {
-        match &mut self.0 {
+        match &self.0 {
             LinuxFile::Uring(file) => file.read_at(pos, buf).await,
             LinuxFile::Pos(file) => file.read_at(pos, buf).await,
         }
     }
 
     pub async fn sync_all(&self) -> Result<()> {
-        match &mut self.0 {
+        match &self.0 {
             LinuxFile::Uring(file) => file.sync_all().await,
             LinuxFile::Pos(file) => file.sync_all().await,
         }
     }
 
     pub async fn sync_data(&self) -> Result<()> {
-        match &mut self.0 {
+        match &self.0 {
             LinuxFile::Uring(file) => file.sync_data().await,
             LinuxFile::Pos(file) => file.sync_data().await,
         }
     }
 
     pub async fn set_len(&self, size: u64) -> Result<()> {
-        match &mut self.0 {
+        match &self.0 {
             LinuxFile::Uring(file) => file.set_len(size).await,
             LinuxFile::Pos(file) => file.set_len(size).await,
         }

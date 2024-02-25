@@ -86,11 +86,11 @@ impl File {
     }
 
     pub(crate) unsafe fn unsafe_from_file(file: tokio::fs::File) -> Self {
-        Ok(Self(file))
+        Self(file)
     }
 
     pub(crate) unsafe fn unsafe_from_raw_fd(fd: RawFd) -> Self {
-        Ok(Self(tokio::fs::File::from_raw_fd(fd)))
+        Self(tokio::fs::File::from_raw_fd(fd))
     }
 }
 
@@ -102,6 +102,6 @@ impl AsFd for File {
 
 impl AsRawFd for File {
     fn as_raw_fd(&self) -> RawFd {
-        self.as_raw_fd()
+        self.0.as_raw_fd()
     }
 }
